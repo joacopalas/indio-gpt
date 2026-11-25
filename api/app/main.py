@@ -4,6 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.responses import StreamingResponse, FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from .schemas import GenerateRequest
 from .serving import (
@@ -14,6 +15,14 @@ from .serving import (
 )
 
 app = FastAPI(title="Indio-GPT")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 api = APIRouter(prefix="/api")
 
